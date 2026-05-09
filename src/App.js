@@ -3,8 +3,8 @@ import "./App.css";
 import UsersPanel from "./components/UsersPanel/UsersPanel.js";
 import SimpleUserForm from "./components/SimpleUserForm/SimpleUserForm.js";
 
-function initialUsers() {
-  const users = [
+function App() {
+  const [users, setUsers] = useState([
     {
       id: 1,
       date: "2026-05-08",
@@ -21,26 +21,25 @@ function initialUsers() {
       amount: 20,
       description: "Pożyczył na tydzień",
     },
-  ];
-
-  const data = localStorage.getItem("users");
-
-  if (data) {
-    return JSON.parse(data);
-  } else {
-    localStorage.setItem("users", JSON.stringify(users));
-    return users;
-  }
-}
-
-const users = initialUsers();
-
-function App() {
+  ]);
   const [currentUser, setCurrentUser] = useState("");
+  const [amount, setAmount] = useState("");
 
   function chooseUser(id) {
     const currentUserObj = users.filter((user) => user.id === id)[0];
     setCurrentUser(currentUserObj);
+    setAmount("");
+  }
+
+  function changeAmount(e) {
+    setAmount(e.target.value);
+  }
+
+  function setNewAmount() {
+    const myUsers = users.map((user) => ({ ...user }));
+    const myUser = myUsers.filter((user) => user.id === currentUser.id)[0];
+    myUser.amount = Number(amount);
+    setUsers(myUsers);
   }
 
   return (
@@ -50,7 +49,12 @@ function App() {
           <UsersPanel users={users} chooseUser={chooseUser} />
         </div>
         <div className="col-12 col-md-6">
-          <SimpleUserForm currentUser={currentUser} />
+          <SimpleUserForm
+            currentUser={currentUser}
+            amount={amount}
+            changeAmount={changeAmount}
+            setNewAmount={setNewAmount}
+          />
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-function SimpleUserForm({ currentUser }) {
+function SimpleUserForm({ currentUser, amount, changeAmount, setNewAmount }) {
   return (
     <form className={currentUser !== "" ? "" : "d-none"}>
       <div className="mb-4">
@@ -11,9 +11,15 @@ function SimpleUserForm({ currentUser }) {
         <label htmlFor="newAmount" className="form-label">
           Wpisz nową kwotę
         </label>
-        <input type="number" className="form-control" id="newAmount" />
+        <input
+          type="number"
+          className="form-control"
+          id="newAmount"
+          value={amount}
+          onChange={changeAmount}
+        />
       </div>
-      <button type="submit" className="btn btn-primary">
+      <button type="button" className="btn btn-primary" onClick={setNewAmount}>
         Zapisz
       </button>
     </form>
