@@ -24,6 +24,7 @@ function App() {
   ]);
   const [currentUser, setCurrentUser] = useState("");
   const [amount, setAmount] = useState("");
+  const [description, setDescription] = useState("");
 
   function chooseUser(id) {
     const currentUserObj = users.filter((user) => user.id === id)[0];
@@ -36,10 +37,32 @@ function App() {
   }
 
   function setNewAmount() {
-    const myUsers = users.map((user) => ({ ...user }));
-    const myUser = myUsers.filter((user) => user.id === currentUser.id)[0];
-    myUser.amount = Number(amount);
-    setUsers(myUsers);
+    if (amount !== "") {
+      const myUsers = users.map((user) => ({ ...user }));
+      const myUser = myUsers.filter((user) => user.id === currentUser.id)[0];
+      myUser.amount = Number(amount);
+      currentUser.amount = Number(amount);
+      setUsers(myUsers);
+      setAmount("");
+    } else {
+      alert("Wpisz jakąś kwotę aby zapisać!");
+    }
+  }
+
+  function changeDescription(e) {
+    setDescription(e.target.value);
+  }
+
+  function setNewDescription() {
+    if (description !== "") {
+      const myUsers = users.map((user) => ({ ...user }));
+      const myUser = myUsers.filter((user) => user.id === currentUser.id)[0];
+      myUser.description = description;
+      setUsers(myUsers);
+      setDescription("");
+    } else {
+      alert("Wpisz jakiś opis aby zapisać!");
+    }
   }
 
   return (
@@ -54,6 +77,9 @@ function App() {
             amount={amount}
             changeAmount={changeAmount}
             setNewAmount={setNewAmount}
+            description={description}
+            changeDescription={changeDescription}
+            setNewDescription={setNewDescription}
           />
         </div>
       </div>
