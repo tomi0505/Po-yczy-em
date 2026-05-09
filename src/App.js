@@ -7,15 +7,19 @@ function initialUsers() {
   const users = [
     {
       id: 1,
+      date: "2026-05-08",
       name: "Jan",
       surname: "Kowalski",
       account: 10,
+      description: "Pożyczył na 3 dni",
     },
     {
       id: 2,
+      date: "2026-05-02",
       name: "Mariusz",
       surname: "Grzyb",
       account: 20,
+      description: "Pożyczył na tydzień",
     },
   ];
 
