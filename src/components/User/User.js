@@ -12,7 +12,7 @@ function User({ user, chooseUser }) {
         </h5>
         <small>{user.date}</small>
       </div>
-      <p className="mb-1">Wisi mi: {user.account} zł.</p>
+      <p className="mb-1">Wisi mi: {user.amount} zł.</p>
       <small>{user.description}</small>
     </a>
   );

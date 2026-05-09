@@ -10,7 +10,7 @@ function initialUsers() {
       date: "2026-05-08",
       name: "Jan",
       surname: "Kowalski",
-      account: 10,
+      amount: 10,
       description: "Pożyczył na 3 dni",
     },
     {
@@ -18,7 +18,7 @@ function initialUsers() {
       date: "2026-05-02",
       name: "Mariusz",
       surname: "Grzyb",
-      account: 20,
+      amount: 20,
       description: "Pożyczył na tydzień",
     },
   ];
