@@ -81,6 +81,14 @@ function App() {
     }
   }
 
+  function removeUser() {
+    const myUsers = users.map((user) => ({ ...user }));
+    const myUser = myUsers.filter((user) => user.id === currentUser.id)[0];
+    const myUsersUpdated = myUsers.filter((user) => user.id !== myUser.id);
+    setUsers(myUsersUpdated);
+    setCurrentUser("");
+  }
+
   return (
     <div className="container my-5">
       <div className="row">
@@ -99,8 +107,12 @@ function App() {
             description={description}
             changeDescription={changeDescription}
             setNewDescription={setNewDescription}
+            removeUser={removeUser}
           />
         </div>
+        {users.length === 0 && (
+          <h2 className="text-center">Brak użytkowników</h2>
+        )}
       </div>
     </div>
   );

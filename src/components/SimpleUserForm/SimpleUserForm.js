@@ -9,6 +9,7 @@ function SimpleUserForm({
   description,
   changeDescription,
   setNewDescription,
+  removeUser,
 }) {
   return (
     <form className={currentUser !== "" ? "mt-4 mt-md-0" : "d-none"}>
@@ -68,7 +69,11 @@ function SimpleUserForm({
         Zapisz
       </button>
       <div className="d-flex justify-content-end mt-4">
-        <button type="button" className="btn btn-danger btn-sm">
+        <button
+          type="button"
+          className="btn btn-danger btn-sm"
+          onClick={removeUser}
+        >
           Usuń użytkownika
         </button>
       </div>
