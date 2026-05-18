@@ -8,21 +8,20 @@ function App() {
     {
       id: 1,
       date: "2026-05-08",
-      name: "Jan",
-      surname: "Kowalski",
+      name: "Jan Kowalski",
       amount: 10,
       description: "Pożyczył na 3 dni",
     },
     {
       id: 2,
       date: "2026-05-02",
-      name: "Mariusz",
-      surname: "Grzyb",
+      name: "Mariusz Grzyb",
       amount: 20,
       description: "Pożyczył na tydzień",
     },
   ]);
   const [currentUser, setCurrentUser] = useState("");
+  const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
 
@@ -32,8 +31,25 @@ function App() {
     setAmount("");
   }
 
+  function changeName(e) {
+    setName(e.target.value);
+  }
+
   function changeAmount(e) {
     setAmount(e.target.value);
+  }
+
+  function setNewName() {
+    if (name !== "") {
+      const myUsers = users.map((user) => ({ ...user }));
+      const myUser = myUsers.filter((user) => user.id === currentUser.id)[0];
+      myUser.name = name;
+      currentUser.name = name;
+      setUsers(myUsers);
+      setName("");
+    } else {
+      alert("Wpisz jakąś nazwę, aby zapisać!");
+    }
   }
 
   function setNewAmount() {
@@ -45,7 +61,7 @@ function App() {
       setUsers(myUsers);
       setAmount("");
     } else {
-      alert("Wpisz jakąś kwotę aby zapisać!");
+      alert("Wpisz jakąś kwotę, aby zapisać!");
     }
   }
 
@@ -61,7 +77,7 @@ function App() {
       setUsers(myUsers);
       setDescription("");
     } else {
-      alert("Wpisz jakiś opis aby zapisać!");
+      alert("Wpisz jakiś opis, aby zapisać!");
     }
   }
 
@@ -77,6 +93,9 @@ function App() {
             amount={amount}
             changeAmount={changeAmount}
             setNewAmount={setNewAmount}
+            name={name}
+            changeName={changeName}
+            setNewName={setNewName}
             description={description}
             changeDescription={changeDescription}
             setNewDescription={setNewDescription}
