@@ -82,11 +82,17 @@ function App() {
   }
 
   function removeUser() {
-    const myUsers = users.map((user) => ({ ...user }));
-    const myUser = myUsers.filter((user) => user.id === currentUser.id)[0];
-    const myUsersUpdated = myUsers.filter((user) => user.id !== myUser.id);
-    setUsers(myUsersUpdated);
-    setCurrentUser("");
+    const confirmed = window.confirm(
+      "Czy na pewno chcesz usunąć tego użytkownika?",
+    );
+
+    if (confirmed) {
+      const myUsers = users.map((user) => ({ ...user }));
+      const myUser = myUsers.filter((user) => user.id === currentUser.id)[0];
+      const myUsersUpdated = myUsers.filter((user) => user.id !== myUser.id);
+      setUsers(myUsersUpdated);
+      setCurrentUser("");
+    }
   }
 
   return (
