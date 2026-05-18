@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import UsersPanel from "./components/UsersPanel/UsersPanel.js";
 import SimpleUserForm from "./components/SimpleUserForm/SimpleUserForm.js";
+import AddNewUserForm from "./components/AddNewUserForm/AddNewUserForm.js";
 
 function App() {
   const [users, setUsers] = useState([
@@ -81,9 +82,13 @@ function App() {
     }
   }
 
+  function addNewUserFormSwitcherView() {
+    setCurrentUser("");
+  }
+
   function removeUser() {
     const confirmed = window.confirm(
-      "Czy na pewno chcesz usunąć tego użytkownika?",
+      `Czy na pewno chcesz usunąć użytkownika ${currentUser.name}?`,
     );
 
     if (confirmed) {
@@ -99,7 +104,12 @@ function App() {
     <div className="container my-5">
       <div className="row">
         <div className="col-12 col-md-6">
-          <UsersPanel users={users} chooseUser={chooseUser} />
+          <UsersPanel
+            users={users}
+            chooseUser={chooseUser}
+            currentUser={currentUser}
+            addNewUserFormSwitcherView={addNewUserFormSwitcherView}
+          />
         </div>
         <div className="col-12 col-md-6">
           <SimpleUserForm
@@ -114,6 +124,11 @@ function App() {
             changeDescription={changeDescription}
             setNewDescription={setNewDescription}
             removeUser={removeUser}
+          />
+          <AddNewUserForm
+            users={users}
+            setUsers={setUsers}
+            currentUser={currentUser}
           />
         </div>
         {users.length === 0 && (
