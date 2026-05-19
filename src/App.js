@@ -5,22 +5,11 @@ import SimpleUserForm from "./components/SimpleUserForm/SimpleUserForm.js";
 import AddNewUserForm from "./components/AddNewUserForm/AddNewUserForm.js";
 
 function App() {
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      date: "2026-05-08",
-      name: "Jan Kowalski",
-      amount: 10,
-      description: "Pożyczył na 3 dni",
-    },
-    {
-      id: 2,
-      date: "2026-05-02",
-      name: "Mariusz Grzyb",
-      amount: 20,
-      description: "Pożyczył na tydzień",
-    },
-  ]);
+  const LS = JSON.parse(localStorage.getItem("users"))
+    ? JSON.parse(localStorage.getItem("users"))
+    : [];
+
+  const [users, setUsers] = useState(LS);
   const [currentUser, setCurrentUser] = useState("");
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
@@ -47,6 +36,7 @@ function App() {
       myUser.name = name;
       currentUser.name = name;
       setUsers(myUsers);
+      localStorage.setItem("users", JSON.stringify(myUsers));
       setName("");
     } else {
       alert("Wpisz jakąś nazwę, aby zapisać!");
@@ -60,6 +50,7 @@ function App() {
       myUser.amount = Number(amount);
       currentUser.amount = Number(amount);
       setUsers(myUsers);
+      localStorage.setItem("users", JSON.stringify(myUsers));
       setAmount("");
     } else {
       alert("Wpisz jakąś kwotę, aby zapisać!");
@@ -76,6 +67,7 @@ function App() {
       const myUser = myUsers.filter((user) => user.id === currentUser.id)[0];
       myUser.description = description;
       setUsers(myUsers);
+      localStorage.setItem("users", JSON.stringify(myUsers));
       setDescription("");
     } else {
       alert("Wpisz jakiś opis, aby zapisać!");
@@ -96,6 +88,7 @@ function App() {
       const myUser = myUsers.filter((user) => user.id === currentUser.id)[0];
       const myUsersUpdated = myUsers.filter((user) => user.id !== myUser.id);
       setUsers(myUsersUpdated);
+      localStorage.setItem("users", JSON.stringify(myUsersUpdated));
       setCurrentUser("");
     }
   }
@@ -110,6 +103,9 @@ function App() {
             currentUser={currentUser}
             addNewUserFormSwitcherView={addNewUserFormSwitcherView}
           />
+          {users.length === 0 && (
+            <h2 className="text-center">Brak użytkowników</h2>
+          )}
         </div>
         <div className="col-12 col-md-6">
           <SimpleUserForm
@@ -131,9 +127,6 @@ function App() {
             currentUser={currentUser}
           />
         </div>
-        {users.length === 0 && (
-          <h2 className="text-center">Brak użytkowników</h2>
-        )}
       </div>
     </div>
   );

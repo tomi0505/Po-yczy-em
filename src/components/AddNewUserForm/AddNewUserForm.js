@@ -30,6 +30,7 @@ function AddNewUserForm({ users, setUsers, currentUser }) {
       const myUsers = users.map((user) => ({ ...user }));
       myUsers.push(newUser);
       setUsers(myUsers);
+      localStorage.setItem("users", JSON.stringify(myUsers));
 
       setUserName("");
       setUserAmount("");
